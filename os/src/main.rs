@@ -10,6 +10,14 @@ fn panic(_info: &PanicInfo) -> ! {
     loop {}
 }
 
+fn clear_bss() {
+    unsafe extern "C" {
+        fn sbss();
+        fn ebss();
+    }
+    (sbss as usize..ebss as usize).for_each(|a| unsafe { (a as *mut u8).write_volatile(0) });
+}
+
 #[unsafe(no_mangle)]
 pub fn rust_main() -> ! {
     loop{};
