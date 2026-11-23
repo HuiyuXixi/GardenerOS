@@ -7,6 +7,7 @@ mod lang_items;
 mod sbi;
 mod batch;
 mod trap;
+mod syscall;
 
 use core::arch::global_asm;
 
