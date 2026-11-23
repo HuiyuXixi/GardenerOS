@@ -6,6 +6,8 @@ mod console;
 mod lang_items;
 mod sbi;
 mod batch;
+mod trap;
+
 use core::arch::global_asm;
 
 global_asm!(include_str!("entry.asm"));
@@ -25,6 +27,7 @@ fn clear_bss() {
 pub fn rust_main() -> ! {
     clear_bss();
     println!("[Kernel] Hello, world!");
+    trap::init();
     batch::init();
-    panic!("Shutdown machine!");
+    batch::run_next_app();
 }
